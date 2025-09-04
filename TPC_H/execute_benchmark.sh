@@ -2,6 +2,7 @@
 
 user='root'
 pw='root'
+DBName='tpch'
 fileList=./sample_queries/*.sql
 timeRes=./result/elapsed_time_$(date +%Y%m%d_%H%M%S).out
 
@@ -20,7 +21,7 @@ do
     name=${name%.*}
     echo -n 'Execution: '$file
     start_time=$(date +%s)
-    mysql -u$user -p$pw < $file > ./result/$name.out 2> /dev/null
+    mysql -u$user -p$pw -D$DBName < $file > ./result/$name.out 2> /dev/null 
     end_time=$(date +%s)
     elapsed=$((end_time-start_time))
     echo ' (Elapsed: '$elapsed' Sec.)'
