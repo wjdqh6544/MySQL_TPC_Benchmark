@@ -44,6 +44,8 @@ make
 ```
 git clone https://github.com/wjdqh6544/MySQL_TPC_Benchmark.git
 ```
+- After finish to clone, You must check the directory name. Here we use files stored in the TPCH directory.
+- CAUTION! Change directory to "TPCH", and move all file in that directory.
 ※ This step requires git package. (You can install using "apt install git")
 
 ### Step 6. Execute "import_TPC_H_to_MySQL.sh" file with DB root user.
