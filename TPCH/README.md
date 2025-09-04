@@ -51,10 +51,11 @@ git clone https://github.com/wjdqh6544/MySQL_TPC_Benchmark.git
 
 ### Step 6. Execute "import_TPC_H_to_MySQL.sh" file with DB root user.
 ```
-sh ./import_TPC_H_to_MySQL.sh root
+sudo sh ./import_TPC_H_to_MySQL.sh root
 ```
 - This shell script creates a database, and puts the data(*.tbl) to that DB automatically.
 - It consumes a lot of time by case. You can check running Query using this command in <b>DB</b>.
+- If an error occurs, Delete the tpch database and try again.
 ```
 show processlist;
 ``` 
@@ -64,6 +65,7 @@ chmod +x import_TPC_H_to_MySQL.sh
 ```
 
 ### Step 7. When the execution is finished, The DB configuration is finished.
+- If an error occurs, Delete the tpch database and try "Step 6" again.
 - From now on, You can configure benchmarking as needed.
 - Also you can run my simple benchmark with below command.
 ```
