@@ -4,28 +4,44 @@ user='root'
 pw='root'
 DBName='tpch'
 fileList=./sample_queries/*.sql
-timeRes=./result/elapsed_time_$(date +%Y%m%d_%H%M%S).out
+resPath=./result/
+resName=elapsed_time_$(date +%Y%m%d_%H%M%S).out
+
+if [[ "$#" -ne 1 || ! "$1" =~ ^[0-9]+$ ]]; then
+  echo
+  echo "Usage: $0 <The number of Iterations>"
+  echo
+  exit 1
+fi
 
 if [ ! -d './result' ]; then
     mkdir result
 fi
 
-if [ ! -f './result/'.$timeRes ]; then
-    touch $timeRes
-fi
-
 echo
-for file in $fileList
+
+for ((repeatCnt=1; repeatCnt <= $1; repeatCnt++))
 do
-    name=`basename $file`
-    name=${name%.*}
-    echo -n 'Execution: '$file
-    start_time=$(date +%s)
-    mysql -u$user -p$pw -D$DBName < $file > ./result/$name.out 2> /dev/null 
-    end_time=$(date +%s)
-    elapsed=$((end_time-start_time))
-    echo ' (Elapsed: '$elapsed' Sec.)'
-    echo
-    echo 'Execution Name: '$file' (Elapsed: '$elapsed' Sec.)' >> $timeRes
-    echo >> $timeRes
+
+    if [ ! -d './result/repeat_$repeatCnt' ]; then
+        mkdir result/repeat_$repeatCnt
+    fi
+
+    for file in $fileList
+    do
+        name=`basename $file`    
+        name=${name%.*}
+        fullPath=$resPath'repeat'$repeatCnt'_'$resName
+
+        echo -n 'Repeat: '$repeatCnt'/'$1', Execution: '$file
+        start_time=$(date +%s)
+        MYSQL_PWD="$pw" mysql -u$user -D$DBName < $file > ./result/repeat_$repeatCnt/$name.out 2> /dev/null 
+        end_time=$(date +%s)
+        elapsed=$((end_time-start_time))
+
+        echo ' (Elapsed: '$elapsed' Sec.)'
+        echo
+        echo 'Repeat: '$repeatCnt'/'$1', Execution Name: '$file' (Elapsed: '$elapsed' Sec.)' >> $fullPath
+        echo >> $fullPath
+    done
 done

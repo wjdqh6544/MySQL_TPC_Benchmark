@@ -44,7 +44,7 @@ make
 ```
 git clone https://github.com/wjdqh6544/MySQL_TPC_Benchmark.git
 ```
-- After finish to clone, You must check the directory name. Here we use files stored in the TPCH directory.
+- After finish to clone, You must check the directory name. Here we use files stored in the TPC_H directory.
 - CAUTION! Change directory to "TPC_H", and move all file in that directory.
 
 ※ This step requires git package. (You can install using "apt install git")
@@ -69,10 +69,15 @@ chmod +x import_TPC_H_to_MySQL.sh
 - From now on, You can configure benchmarking as needed.
 - Also you can run my simple benchmark with below command.
 ```
-sh execute_benchmark.sh
+./execute_benchmark.sh <The number of Iterations>
 ```
 - It measures the running time, and the query is in "queries" directory. (It based on TPC-H Tools)
-- The result is saved to file. (It is in "result" directory / filename is *.result)
+- The result is saved to file. (It is in "result" directory / filename is *.out)
+- I think you should change the root user password in MySQL to your environment. (at head of shell script.)
+- If cannot execute this file, try to run this command
+```
+chmod +x execute_benchmark.sh
+```
 
 ## Troubleshooting
 ```

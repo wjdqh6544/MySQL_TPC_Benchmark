@@ -13,6 +13,6 @@ echo
 sudo mysql -u ${1?The script should be executed as follows: ./import_TPC_H_to_MySQL.sh <DB Username>} -p  < TPC_H_to_MySQL.sql
 
 echo
-echo "Complete. Please check if there was SQL Syntac Error."
+echo "Complete. Please check if there was SQL Syntax Error."
 echo "If the error has occured, Please check the log, and correct it and try again."
 echo
