@@ -2,7 +2,7 @@
 
 user='root'
 pw='root'
-DBName='tpch'
+DBName='tpcds'
 fileList=./sample_queries/*.sql
 resPath=./result/
 resName=elapsed_time_$(date +%Y%m%d_%H%M%S).out
