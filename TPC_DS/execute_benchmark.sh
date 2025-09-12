@@ -41,6 +41,6 @@ do
 
         echo ' (Elapsed: '$elapsed' NanoSec.)'
         echo
-        echo 'Repeat: '$repeatCnt'/'$1', Execution Name: '$file' (Elapsed: '$elapsed' Sec.)' >> $fullPath
+        echo "Repeat: $repeatCnt/$1, Execution Name: $file (Elapsed: $elapsed NanoSec.)" >> $fullPath
     done
 done
