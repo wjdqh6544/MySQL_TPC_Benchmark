@@ -5,10 +5,8 @@ WITH wscs AS
         (SELECT ws_sold_date_sk sold_date_sk ,
          ws_ext_sales_price sales_price
         FROM web_sales
-        UNION
-        allSELECT cs_sold_date_sk sold_date_sk ,
-         cs_ext_sales_price sales_price
-        FROM catalog_sales)), wswscs AS 
+        UNION all Select cs_sold_date_sk sold_date_sk, cs_ext_sales_price sales_price
+        FROM catalog_sales) t), wswscs AS 
         (SELECT d_week_seq,
          sum(case
             WHEN (d_day_name='Sunday') THEN

@@ -1,10 +1,10 @@
 SELECT w_state ,
         i_item_id ,
         sum(case
-    WHEN (cast(d_date AS date) < cast ('2000-03-11' AS date)) THEN
+    WHEN (d_date < DATE(2000-03-11)) THEN
     cs_sales_price - coalesce(cr_refunded_cash,0)
     ELSE 0 end) AS sales_before ,sum(case
-    WHEN (cast(d_date AS date) >= cast ('2000-03-11' AS date)) THEN
+    WHEN (d_date >= DATE(2000-03-11)) THEN
     cs_sales_price - coalesce(cr_refunded_cash,0)
     ELSE 0 end) AS sales_after
 FROM catalog_sales left outer
@@ -18,8 +18,8 @@ WHERE i_current_price
         AND cs_warehouse_sk = w_warehouse_sk
         AND cs_sold_date_sk = d_date_sk
         AND d_date
-    BETWEEN (cast ('2000-03-11' AS date) - INTERVAL '30' DAY)
-        AND (cast ('2000-03-11' AS date) + INTERVAL '30' DAY)
+    BETWEEN (DATE(2000-03-11) - INTERVAL 30 DAY)
+        AND (DATE(2000-03-11) + INTERVAL 30 DAY)
 GROUP BY  w_state,i_item_id
 ORDER BY  w_state,
         i_item_id limit 100; 

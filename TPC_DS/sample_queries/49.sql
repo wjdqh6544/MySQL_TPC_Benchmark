@@ -14,20 +14,11 @@ FROM
             OVER (order by currency_ratio) AS currency_rank
         FROM 
             (SELECT ws.ws_item_sk AS item ,
-        (cast(sum(coalesce(wr.wr_return_quantity,
-        0)) AS decimal(15,
-        4))/ cast(sum(coalesce(ws.ws_quantity,
-        0)) AS decimal(15,
-        4) )) AS return_ratio ,
-        (cast(sum(coalesce(wr.wr_return_amt,
-        0)) AS decimal(15,
-        4))/ cast(sum(coalesce(ws.ws_net_paid,
-        0)) AS decimal(15,
-        4) )) AS currency_ratio
+        (cast(sum(coalesce(wr.wr_return_quantity, 0)) AS decimal(15, 4)) / cast(sum(coalesce(ws.ws_quantity, 0)) AS decimal(15, 4) )) AS return_ratio ,
+        (cast(sum(coalesce(wr.wr_return_amt, 0)) AS decimal(15, 4))/ cast(sum(coalesce(ws.ws_net_paid, 0)) AS decimal(15, 4) )) AS currency_ratio
             FROM web_sales ws left outer
             JOIN web_returns wr
-                ON (ws.ws_order_number = wr.wr_order_number
-                    AND ws.ws_item_sk = wr.wr_item_sk) ,date_dim
+                ON (ws.ws_order_number = wr.wr_order_number AND ws.ws_item_sk = wr.wr_item_sk) ,date_dim
             WHERE wr.wr_return_amt > 10000
                     AND ws.ws_net_profit > 1
                     AND ws.ws_net_paid > 0
@@ -107,7 +98,7 @@ FROM
                                     AND d_moy = 12
                             GROUP BY  sts.ss_item_sk ) in_store ) store
                             WHERE ( store.return_rank <= 10
-                                    OR store.currency_rank <= 10 ) )
+                                    OR store.currency_rank <= 10 ) ) t
                         ORDER BY  1,
         4,
         5,

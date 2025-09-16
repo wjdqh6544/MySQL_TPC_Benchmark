@@ -1,4 +1,4 @@
-SELECT sum (ss_quantity)
+SELECT sum(ss_quantity)
 FROM store_sales, store, customer_demographics, customer_address, date_dim
 WHERE s_store_sk = ss_store_sk
         AND ss_sold_date_sk = d_date_sk

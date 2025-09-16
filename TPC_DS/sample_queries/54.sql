@@ -7,7 +7,7 @@ WITH my_customers AS
          cs_item_sk item_sk
         FROM catalog_sales
         UNION
-        allSELECT ws_sold_date_sk sold_date_sk,
+        all Select ws_sold_date_sk sold_date_sk,
          ws_bill_customer_sk customer_sk,
          ws_item_sk item_sk
         FROM web_sales ) cs_or_ws_sales, item, date_dim, customer
@@ -38,7 +38,7 @@ WITH my_customers AS
                 WHERE d_year = 1998
                         AND d_moy = 12)
                 GROUP BY  c_customer_sk ) , segments AS 
-                (SELECT cast((revenue/50) AS int) AS segment
+                (SELECT cast((revenue/50) AS SIGNED) AS segment
                 FROM my_revenue )
             SELECT segment,
          count(*) AS num_customers,

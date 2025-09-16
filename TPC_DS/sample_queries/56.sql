@@ -47,10 +47,10 @@ WITH ss AS
         (SELECT *
         FROM ss
         UNION
-        allSELECT *
+        all Select *
         FROM cs
         UNION
-        allSELECT *
+        all Select *
         FROM ws) tmp1
     GROUP BY  i_item_id
 ORDER BY  total_sales, i_item_id limit 100; 

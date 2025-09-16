@@ -68,10 +68,10 @@ FROM
     (SELECT 'store channel' AS channel , 'store' || store_id AS id , sales , returns , profit
     FROM ssr
     UNION
-    allSELECT 'catalog channel' AS channel , 'catalog_page' || catalog_page_id AS id , sales , returns , profit
+    all Select 'catalog channel' AS channel , 'catalog_page' || catalog_page_id AS id , sales , returns , profit
     FROM csr
     UNION
-    allSELECT 'web channel' AS channel , 'web_site' || web_site_id AS id , sales , returns , profit
+    all Select 'web channel' AS channel , 'web_site' || web_site_id AS id , sales , returns , profit
     FROM wsr ) x
 GROUP BY  rollup (channel, id)
 ORDER BY  channel ,id LIMIT 100; 

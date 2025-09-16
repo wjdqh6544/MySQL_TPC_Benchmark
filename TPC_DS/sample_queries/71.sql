@@ -13,7 +13,7 @@ FROM item,
             AND d_moy=11
             AND d_year=1999
     UNION
-    allSELECT cs_ext_sales_price AS ext_price,
+    all Select cs_ext_sales_price AS ext_price,
          cs_sold_date_sk AS sold_date_sk,
          cs_item_sk AS sold_item_sk,
          cs_sold_time_sk AS time_sk
@@ -22,7 +22,7 @@ FROM item,
             AND d_moy=11
             AND d_year=1999
     UNION
-    allSELECT ss_ext_sales_price AS ext_price,
+    all Select ss_ext_sales_price AS ext_price,
          ss_sold_date_sk AS sold_date_sk,
          ss_item_sk AS sold_item_sk,
          ss_sold_time_sk AS time_sk

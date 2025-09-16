@@ -1,7 +1,7 @@
 #!/bin/bash
 
 user='root'
-pw='root'
+pw='********'
 DBName='tpch'
 fileList=./sample_queries/*.sql
 resPath=./result/
@@ -34,10 +34,14 @@ do
         fullPath=$resPath'repeat'$repeatCnt'_'$resName
 
         echo -n 'Repeat: '$repeatCnt'/'$1', Execution: '$file
-        start_time=$(date +%s%N)
+        start_time_sec=$(date +%s)
+        start_time_nsec=$(date +%N)
+        start_time=$((10#$start_time_sec*1000000000 + 10#$start_time_nsec))
         MYSQL_PWD="$pw" mysql -u$user -D$DBName < $file > ./result/repeat_$repeatCnt/$name.out
-        end_time=$(date +%s%N)
-        elapsed=$((end_time-start_time))
+        end_time_sec=$(date +%s)
+        end_time_nsec=$(date +%N)
+        end_time=$((10#$end_time_sec*1000000000 + 10#$end_time_nsec))
+        elapsed=$((10#$end_time - 10#$start_time))
 
         echo ' (Elapsed: '$elapsed' NanoSec.)'
         echo

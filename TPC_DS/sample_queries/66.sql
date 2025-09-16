@@ -134,7 +134,7 @@ FROM
             AND sm_carrier IN ('DHL','BARIAN')
     GROUP BY  w_warehouse_name ,w_warehouse_sq_ft ,w_city ,w_county ,w_state ,w_country ,d_year
     UNION
-    allSELECT w_warehouse_name ,
+    all Select w_warehouse_name ,
         w_warehouse_sq_ft ,
         w_city ,
         w_county ,

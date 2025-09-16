@@ -15,7 +15,7 @@ WITH ssr AS
          2)) AS net_loss
         FROM store_sales
         UNION
-        allSELECT sr_store_sk AS store_sk,
+        all Select sr_store_sk AS store_sk,
          sr_returned_date_sk AS date_sk,
          cast(0 AS decimal(7,
          2)) AS sales_price,
@@ -46,7 +46,7 @@ WITH ssr AS
          2)) AS net_loss
             FROM catalog_sales
             UNION
-            allSELECT cr_catalog_page_sk AS page_sk,
+            all Select cr_catalog_page_sk AS page_sk,
          cr_returned_date_sk AS date_sk,
          cast(0 AS decimal(7,
          2)) AS sales_price,
@@ -77,7 +77,7 @@ WITH ssr AS
          2)) AS net_loss
                 FROM web_sales
                 UNION
-                allSELECT ws_web_site_sk AS wsr_web_site_sk,
+                all Select ws_web_site_sk AS wsr_web_site_sk,
          wr_returned_date_sk AS date_sk,
          cast(0 AS decimal(7,
          2)) AS sales_price,
@@ -104,10 +104,10 @@ WITH ssr AS
         (SELECT 'store channel' AS channel , 'store' || s_store_id AS id , sales , returns , (profit - profit_loss) AS profit
         FROM ssr
         UNION
-        allSELECT 'catalog channel' AS channel , 'catalog_page' || cp_catalog_page_id AS id , sales , returns , (profit - profit_loss) AS profit
+        all Select 'catalog channel' AS channel , 'catalog_page' || cp_catalog_page_id AS id , sales , returns , (profit - profit_loss) AS profit
         FROM csr
         UNION
-        allSELECT 'web channel' AS channel , 'web_site' || web_site_id AS id , sales , returns , (profit - profit_loss) AS profit
+        all Select 'web channel' AS channel , 'web_site' || web_site_id AS id , sales , returns , (profit - profit_loss) AS profit
         FROM wsr ) x
     GROUP BY  rollup (channel, id)
 ORDER BY  channel ,

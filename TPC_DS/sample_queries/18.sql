@@ -28,8 +28,5 @@ WHERE cs_sold_date_sk = d_date_sk
         AND c_birth_month IN (1,6,8,9,12,2)
         AND d_year = 1998
         AND ca_state IN ('MS','IN','ND' ,'OK','NM','VA','MS')
-GROUP BY  rollup (i_item_id, ca_country, ca_state, ca_county)
-ORDER BY  ca_country,
-         ca_state,
-         ca_county,
-         i_item_id limit 100; 
+GROUP BY i_item_id, ca_country, ca_state, ca_county WITH ROLLUP
+ORDER BY ca_country, ca_state, ca_county, i_item_id limit 100;

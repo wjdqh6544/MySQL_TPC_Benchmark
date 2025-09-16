@@ -68,10 +68,10 @@ FROM
     LEFT JOIN sr
         ON ss.s_store_sk = sr.s_store_sk
     UNION
-    allSELECT 'catalog channel' AS channel , cs_call_center_sk AS id , sales , returns , (profit - profit_loss) AS profit
+    all Select 'catalog channel' AS channel , cs_call_center_sk AS id , sales , returns , (profit - profit_loss) AS profit
     FROM cs , cr
     UNION
-    allSELECT 'web channel' AS channel , ws.wp_web_page_sk AS id , sales , coalesce(returns, 0) returns , (profit - coalesce(profit_loss,0)) AS profit
+    all Select 'web channel' AS channel , ws.wp_web_page_sk AS id , sales , coalesce(returns, 0) returns , (profit - coalesce(profit_loss,0)) AS profit
     FROM ws
     LEFT JOIN wr
         ON ws.wp_web_page_sk = wr.wp_web_page_sk ) x

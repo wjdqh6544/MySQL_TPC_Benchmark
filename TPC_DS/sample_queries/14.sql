@@ -9,7 +9,7 @@ WITH cross_items AS
                 AND ss_sold_date_sk = d1.d_date_sk
                 AND d1.d_year
             BETWEEN 1999
-                AND 1999 + 2 intersectSELECT ics.i_brand_id ,
+                AND 1999 + 2 intersect SELECT ics.i_brand_id ,
         ics.i_class_id ,
         ics.i_category_id
         FROM catalog_sales ,item ics ,date_dim d2
@@ -17,7 +17,7 @@ WITH cross_items AS
                 AND cs_sold_date_sk = d2.d_date_sk
                 AND d2.d_year
             BETWEEN 1999
-                AND 1999 + 2 intersectSELECT iws.i_brand_id ,
+                AND 1999 + 2 intersect SELECT iws.i_brand_id ,
         iws.i_class_id ,
         iws.i_category_id
         FROM web_sales ,item iws ,date_dim d3
@@ -39,7 +39,7 @@ WITH cross_items AS
                 BETWEEN 1999
                     AND 1999 + 2
             UNION
-            allSELECT cs_quantity quantity ,
+            all SELECT cs_quantity quantity ,
         cs_list_price list_price
             FROM catalog_sales ,date_dim
             WHERE cs_sold_date_sk = d_date_sk
@@ -47,7 +47,7 @@ WITH cross_items AS
                 BETWEEN 1999
                     AND 1999 + 2
             UNION
-            allSELECT ws_quantity quantity ,
+            all SELECT ws_quantity quantity ,
         ws_list_price list_price
             FROM web_sales ,date_dim
             WHERE ws_sold_date_sk = d_date_sk
@@ -74,7 +74,7 @@ WITH cross_items AS
                 (SELECT average_sales
                 FROM avg_sales)
                 UNION
-                allSELECT 'catalog' channel, i_brand_id,i_class_id,i_category_id, sum(cs_quantity*cs_list_price) sales, count(*) number_sales
+                all SELECT 'catalog' channel, i_brand_id,i_class_id,i_category_id, sum(cs_quantity*cs_list_price) sales, count(*) number_sales
                 FROM catalog_sales ,item ,date_dim
                 WHERE cs_item_sk IN 
                     (SELECT ss_item_sk
@@ -88,7 +88,7 @@ WITH cross_items AS
                         (SELECT average_sales
                         FROM avg_sales)
                         UNION
-                        allSELECT 'web' channel, i_brand_id,i_class_id,i_category_id, sum(ws_quantity*ws_list_price) sales , count(*) number_sales
+                        all SELECT 'web' channel, i_brand_id,i_class_id,i_category_id, sum(ws_quantity*ws_list_price) sales , count(*) number_sales
                         FROM web_sales ,item ,date_dim
                         WHERE ws_item_sk IN 
                             (SELECT ss_item_sk
@@ -114,7 +114,7 @@ WITH cross_items AS
                                 AND ss_sold_date_sk = d1.d_date_sk
                                 AND d1.d_year
                             BETWEEN 1999
-                                AND 1999 + 2 intersectSELECT ics.i_brand_id ,
+                                AND 1999 + 2 intersect SELECT ics.i_brand_id ,
         ics.i_class_id ,
         ics.i_category_id
                         FROM catalog_sales ,item ics ,date_dim d2
@@ -122,7 +122,7 @@ WITH cross_items AS
                                 AND cs_sold_date_sk = d2.d_date_sk
                                 AND d2.d_year
                             BETWEEN 1999
-                                AND 1999 + 2 intersectSELECT iws.i_brand_id ,
+                                AND 1999 + 2 intersect SELECT iws.i_brand_id ,
         iws.i_class_id ,
         iws.i_category_id
                         FROM web_sales ,item iws ,date_dim d3
@@ -144,7 +144,7 @@ WITH cross_items AS
                                 BETWEEN 1999
                                     AND 1999 + 2
                             UNION
-                            allSELECT cs_quantity quantity ,
+                            all SELECT cs_quantity quantity ,
         cs_list_price list_price
                             FROM catalog_sales ,date_dim
                             WHERE cs_sold_date_sk = d_date_sk
@@ -152,7 +152,7 @@ WITH cross_items AS
                                 BETWEEN 1999
                                     AND 1999 + 2
                             UNION
-                            allSELECT ws_quantity quantity ,
+                            all SELECT ws_quantity quantity ,
         ws_list_price list_price
                             FROM web_sales ,date_dim
                             WHERE ws_sold_date_sk = d_date_sk

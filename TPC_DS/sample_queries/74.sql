@@ -11,7 +11,7 @@ WITH year_total AS
             AND d_year IN (2001,2001+1)
     GROUP BY  c_customer_id ,c_first_name ,c_last_name ,d_year
     UNION
-    allSELECT c_customer_id customer_id ,
+    all Select c_customer_id customer_id ,
         c_first_name customer_first_name ,
         c_last_name customer_last_name ,
         d_year AS year ,

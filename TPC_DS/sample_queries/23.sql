@@ -1,5 +1,4 @@
-WITH frequent_ss_items AS 
-    (SELECT substr(i_item_desc,
+WITH frequent_ss_items AS (SELECT substr(i_item_desc,
         1,
         30) itemdesc,
         i_item_sk item_sk,
@@ -10,18 +9,16 @@ WITH frequent_ss_items AS
             AND ss_item_sk = i_item_sk
             AND d_year IN (2000,2000+1,2000+2,2000+3)
     GROUP BY  substr(i_item_desc,1,30),i_item_sk,d_date
-    HAVING count(*) >4), max_store_sales AS 
-    (SELECT max(csales) tpcds_cmax
+    HAVING count(*) >4), max_store_sales AS (SELECT max(csales) tpcds_cmax
     FROM 
         (SELECT c_customer_sk,
-        sum(ss_quantity*ss_sales_price) csales
+        sum(ss_quantity*ss_sales_price) AS csales
         FROM store_sales ,customer ,date_dim
         WHERE ss_customer_sk = c_customer_sk
                 AND ss_sold_date_sk = d_date_sk
                 AND d_year IN (2000,2000+1,2000+2,2000+3)
-        GROUP BY  c_customer_sk)), best_ss_customer AS 
-        (SELECT c_customer_sk,
-        sum(ss_quantity*ss_sales_price) ssales
+        GROUP BY  c_customer_sk)), best_ss_customer AS (SELECT c_customer_sk,
+        sum(ss_quantity*ss_sales_price) AS ssales
         FROM store_sales ,customer
         WHERE ss_customer_sk = c_customer_sk
         GROUP BY  c_customer_sk
@@ -41,8 +38,7 @@ WITH frequent_ss_items AS
                 AND cs_bill_customer_sk IN 
             (SELECT c_customer_sk
             FROM best_ss_customer)
-            UNION
-            allSELECT ws_quantity*ws_list_price sales
+            UNION all SELECT ws_quantity*ws_list_price sales
             FROM web_sales ,date_dim
             WHERE d_year = 2000
                     AND d_moy = 2
@@ -52,9 +48,8 @@ WITH frequent_ss_items AS
                 FROM frequent_ss_items)
                         AND ws_bill_customer_sk IN 
                     (SELECT c_customer_sk
-                    FROM best_ss_customer)) limit 100;
-                WITH frequent_ss_items AS 
-                (SELECT substr(i_item_desc,
+                    FROM best_ss_customer)) t limit 100;
+                WITH frequent_ss_items AS (SELECT substr(i_item_desc,
         1,
         30) itemdesc,
         i_item_sk item_sk,
@@ -65,8 +60,7 @@ WITH frequent_ss_items AS
                         AND ss_item_sk = i_item_sk
                         AND d_year IN (2000,2000 + 1,2000 + 2,2000 + 3)
                 GROUP BY  substr(i_item_desc,1,30),i_item_sk,d_date
-                HAVING count(*) >4), max_store_sales AS 
-                (SELECT max(csales) tpcds_cmax
+                HAVING count(*) >4), max_store_sales AS (SELECT max(csales) tpcds_cmax
                 FROM 
                     (SELECT c_customer_sk,
         sum(ss_quantity*ss_sales_price) csales
@@ -74,7 +68,7 @@ WITH frequent_ss_items AS
                     WHERE ss_customer_sk = c_customer_sk
                             AND ss_sold_date_sk = d_date_sk
                             AND d_year IN (2000,2000+1,2000+2,2000+3)
-                    GROUP BY  c_customer_sk)), best_ss_customer AS 
+                    GROUP BY  c_customer_sk) t), best_ss_customer AS 
                     (SELECT c_customer_sk,
         sum(ss_quantity*ss_sales_price) ssales
                     FROM store_sales ,customer
@@ -102,8 +96,7 @@ WITH frequent_ss_items AS
                         FROM best_ss_customer)
                                 AND cs_bill_customer_sk = c_customer_sk
                         GROUP BY  c_last_name,c_first_name
-                        UNION
-                        allSELECT c_last_name,
+                        UNION all SELECT c_last_name,
         c_first_name,
         sum(ws_quantity*ws_list_price) sales
                         FROM web_sales ,customer ,date_dim
@@ -117,5 +110,5 @@ WITH frequent_ss_items AS
                                 (SELECT c_customer_sk
                                 FROM best_ss_customer)
                                         AND ws_bill_customer_sk = c_customer_sk
-                                GROUP BY  c_last_name,c_first_name)
+                                GROUP BY  c_last_name,c_first_name) t
                             ORDER BY  c_last_name,c_first_name,sales limit 100; 
