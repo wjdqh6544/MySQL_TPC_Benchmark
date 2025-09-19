@@ -15,7 +15,7 @@ WHERE d1.d_month_seq
         AND 1200+11
         AND d1.d_date_sk = ws_sold_date_sk
         AND i_item_sk = ws_item_sk
-GROUP BY  rollup(i_category,i_class)
+GROUP BY  i_category,i_class WITH ROLLUP
 ORDER BY  lochierarchy desc,
     CASE
     WHEN lochierarchy = 0 THEN

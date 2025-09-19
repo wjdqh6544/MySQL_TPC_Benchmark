@@ -30,7 +30,7 @@ FROM
                 AND d_month_seq
             BETWEEN 1200
                 AND 1200+11
-        GROUP BY  rollup(i_category, i_class, i_brand, i_product_name, d_year, d_qoy, d_moy,s_store_id))dw1) dw2
+        GROUP BY i_category, i_class, i_brand, i_product_name, d_year, d_qoy, d_moy,s_store_id WITH ROLLUP)dw1) dw2
     WHERE rk <= 100
 ORDER BY  i_category ,
         i_class ,

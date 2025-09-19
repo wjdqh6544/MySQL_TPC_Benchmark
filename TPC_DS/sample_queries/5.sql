@@ -109,6 +109,6 @@ WITH ssr AS
         UNION
         all Select 'web channel' AS channel , 'web_site' || web_site_id AS id , sales , returns , (profit - profit_loss) AS profit
         FROM wsr ) x
-    GROUP BY  rollup (channel, id)
+    GROUP BY channel, id WITH rollup
 ORDER BY  channel ,
         id limit 100; 

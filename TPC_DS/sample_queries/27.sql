@@ -15,6 +15,6 @@ WHERE ss_sold_date_sk = d_date_sk
         AND cd_education_status = 'College'
         AND d_year = 2002
         AND s_state IN ('TN','TN', 'TN', 'TN', 'TN', 'TN')
-GROUP BY  rollup (i_item_id, s_state)
+GROUP BY  i_item_id, s_state WITH ROLLUP
 ORDER BY  i_item_id ,
         s_state limit 100; 

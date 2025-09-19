@@ -25,7 +25,7 @@ WITH cross_items AS
                 AND ws_sold_date_sk = d3.d_date_sk
                 AND d3.d_year
             BETWEEN 1999
-                AND 1999 + 2)
+                AND 1999 + 2) t
         WHERE i_brand_id = brand_id
                 AND i_class_id = class_id
                 AND i_category_id = category_id ), avg_sales AS 
@@ -61,7 +61,7 @@ WITH cross_items AS
         sum(sales),
          sum(number_sales) from
         (SELECT 'store' channel, i_brand_id,i_class_id ,i_category_id,sum(ss_quantity*ss_list_price) sales , count(*) number_sales
-        FROM store_sales ,item ,date_dim
+        FROM store_sales ,item ,date_dim x
         WHERE ss_item_sk IN 
             (SELECT ss_item_sk
             FROM cross_items)
@@ -101,7 +101,7 @@ WITH cross_items AS
                             HAVING sum(ws_quantity*ws_list_price) > 
                                 (SELECT average_sales
                                 FROM avg_sales) ) y
-                            GROUP BY  rollup (channel, i_brand_id,i_class_id,i_category_id)
+                            GROUP BY  channel, i_brand_id,i_class_id,i_category_id WITH ROLLUP
                         ORDER BY  channel,i_brand_id,i_class_id,i_category_id limit 100;
                     WITH cross_items AS 
                     (SELECT i_item_sk ss_item_sk

@@ -75,5 +75,5 @@ FROM
     FROM ws
     LEFT JOIN wr
         ON ws.wp_web_page_sk = wr.wp_web_page_sk ) x
-GROUP BY  rollup (channel, id)
+GROUP BY  channel, id WITH ROLLUP
 ORDER BY  channel ,id LIMIT 100;

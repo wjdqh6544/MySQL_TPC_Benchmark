@@ -73,5 +73,5 @@ FROM
     UNION
     all Select 'web channel' AS channel , 'web_site' || web_site_id AS id , sales , returns , profit
     FROM wsr ) x
-GROUP BY  rollup (channel, id)
+GROUP BY  channel, id WITH ROLLUP
 ORDER BY  channel ,id LIMIT 100; 

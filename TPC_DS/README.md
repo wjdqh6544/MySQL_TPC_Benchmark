@@ -65,6 +65,10 @@ chmod +x import_TPC_DS_to_MySQL.sh
 ```
 chmod +x import_TPC_DS_to_MySQL.sh
 ```
+- When finish the benchmark, You can parse benchmark result using "parsing.py" automatically.
+- Result file is "res" directory, and "res" directory must be same position with "parsing.py".
+- It extracts Repeat Step, Executed Query Number, and Elapsed Time with NanoSeconds Unit.
+- And, Extracted data is saved to "res.xlsx".
 
 ## Troubleshooting
 ```

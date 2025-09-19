@@ -15,7 +15,7 @@ WHERE d1.d_year = 2001
         AND i_item_sk = ss_item_sk
         AND s_store_sk = ss_store_sk
         AND s_state IN ('TN','TN','TN','TN', 'TN','TN','TN','TN')
-GROUP BY  rollup(i_category,i_class)
+GROUP BY  i_category,i_class WITH ROLLUP
 ORDER BY  lochierarchy DESC ,case
     WHEN lochierarchy = 0 THEN
     i_category

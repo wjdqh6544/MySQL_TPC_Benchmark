@@ -4,7 +4,7 @@ WITH frequent_ss_items AS (SELECT substr(i_item_desc,
         i_item_sk item_sk,
         d_date solddate,
         count(*) cnt
-    FROM store_sales ,date_dim ,item
+    FROM store_sales ,date_dim ,item t
     WHERE ss_sold_date_sk = d_date_sk
             AND ss_item_sk = i_item_sk
             AND d_year IN (2000,2000+1,2000+2,2000+3)
@@ -17,7 +17,7 @@ WITH frequent_ss_items AS (SELECT substr(i_item_desc,
         WHERE ss_customer_sk = c_customer_sk
                 AND ss_sold_date_sk = d_date_sk
                 AND d_year IN (2000,2000+1,2000+2,2000+3)
-        GROUP BY  c_customer_sk)), best_ss_customer AS (SELECT c_customer_sk,
+        GROUP BY  c_customer_sk) t), best_ss_customer AS (SELECT c_customer_sk,
         sum(ss_quantity*ss_sales_price) AS ssales
         FROM store_sales ,customer
         WHERE ss_customer_sk = c_customer_sk

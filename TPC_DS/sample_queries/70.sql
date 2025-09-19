@@ -30,7 +30,7 @@ WHERE d1.d_month_seq
                 AND s_store_sk = ss_store_sk
         GROUP BY  s_state ) tmp1
         WHERE ranking <= 5 )
-    GROUP BY  rollup(s_state,s_county)
+    GROUP BY s_state,s_county WITH ROLLUP
 ORDER BY  lochierarchy DESC ,case
     WHEN lochierarchy = 0 THEN
     s_state
